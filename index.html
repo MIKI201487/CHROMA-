@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assets Loading</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .box {
+            width: 90%;
+            height: 90%;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .progress-bar-container {
+            width: 80%;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background-color: #007BFF;
+            width: 0%;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+
+        .button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #007BFF;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="message" id="progressMessage">Assets loading 1/100</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar">1/100</div>
+        </div>
+        <button id="claimButton" class="button" onclick="redirectToWebsite()">Click here to claim Chromas</button>
+    </div>
+
+    <script>
+        function startLoading() {
+            let progress = 0;
+            const progressBar = document.getElementById("progressBar");
+            const progressMessage = document.getElementById("progressMessage");
+            const claimButton = document.getElementById("claimButton");
+
+            // Set a random time for the loading to take between 10 and 20 seconds
+            const loadTime = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+
+            let interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + "%";
+                progressBar.innerHTML = `${progress}/100`;
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    progressMessage.innerText = "Assets loading completed!";
+                    claimButton.style.display = "inline-block";
+                }
+            }, loadTime / 100); // Dividing by 100 for smooth progress
+        }
+
+        // Redirect to now.gg after clicking the button
+        function redirectToWebsite() {
+            window.location.href = "https://now.gg";
+        }
+
+        // Start the loading process as soon as the page is loaded
+        window.onload = startLoading;
+    </script>
+</body>
+</html>
